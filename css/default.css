@@ -1,0 +1,529 @@
+/* You can implement your own css code*/
+
+#passwd_result{
+    color: red;
+    padding: 10px 0px 10px 0px;
+    font-size: 12px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+#upload_result{
+	background:#CC3300;
+	color:#FFFFFF;
+	font-weight:bold;
+	margin-right:60%;
+}
+
+#accountleft{
+    bottom: 0;
+	left: 0;
+	width: 33%;
+	overflow-y: scroll;
+	height:100%
+}
+
+#accountright{
+    bottom: 0;
+    left: 0;
+    width: 67%;
+	overflow-y: scroll;
+}
+
+#searchForm{
+    margin-bottom: 0px;
+}
+
+.login-title {
+    margin-top: 0px;
+}
+
+.login-form {
+    width: 50%;
+    margin: 0px auto;
+}
+
+.login-label {
+    text-align: left;
+    vertical-align: middle;
+    padding: 0px 0px 20px 0px;
+}
+
+.registration-form {
+    width: 50%;
+    margin: 0px auto;
+}
+
+.registration-title {
+    margin-top: 0px;
+}
+
+.registration-label {
+    text-align: left;
+    vertical-align: middle;
+    padding: 0px 0px 20px 0px;
+}
+
+.registration-validation {
+    padding: 0px 0px 20px 10px;
+    font-size: 13px;
+    color: red;
+}
+
+.header-container {
+    padding: 10px 20px 0px 20px;
+    min-width: 1200px;
+}
+
+.header-btn {
+    float: right;
+    margin-left: 5px
+}
+
+.body-content{
+    width: 60%;
+    min-width: 1200px;
+    margin: 0px auto;
+}
+
+.media-container{
+    width: 854px;
+    min-height: 480px;
+    border: 1px solid grey;
+    background-color: black;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+h3.media-title{
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    line-height: 7px;
+}
+
+.media-item{
+    max-width: 854px;
+}
+
+.media-details-container{
+    width: 854px;
+    border-width: 0px 1px 1px 1px;
+    border-style: solid;
+    border-color: grey;
+}
+
+.account-details-container{	
+	border-width: 1px 1px 1px 1px;
+	border-style: solid;
+	border-color: grey;
+}
+
+.account-media-details-container{
+	width: 14vw;
+	border-width: 1px 1px 1px 1px;
+	border-style: solid;
+	border-color: grey;
+	float: left;
+	white-space: nowrap;
+	overflow: hidden;
+    text-overflow: ellipsis;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	padding: 3px 3px;
+}
+
+.media-description-value{
+    padding: 0px 5px 0px 25px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    word-wrap: break-word;
+}
+
+.media-description-value:first-letter{
+    margin-left: -20px;
+}
+
+.submit-comment-container{
+    max-width: 854px;
+    border: 1px solid grey;
+    position: relative;
+}
+
+.submit-comment-form{
+    padding: 5px;
+}
+
+.edit-comment-form{
+    padding: 5px;
+}
+
+.btn-right-align{
+    margin: auto;
+    text-align: right;
+}
+
+.comment-text{
+    resize: none;
+}
+
+.comment-message{
+    padding: 0px 5px 0px 5px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.current-comments-container{
+    width: 854px;
+    border: 1px solid grey;
+}
+
+.existing-comment-container{
+    width: 95%;
+    margin: auto;
+    border: 1px solid grey;
+}
+
+.similar-media-container{
+    min-width:200px;
+    max-width: 400px;
+    max-height: 765px;
+    overflow-y: auto;
+    width: calc(100% - 864px);
+    float: right;
+    word-wrap: break-word;
+    text-align:center;
+    border: 1px solid grey;
+}
+
+
+.media-container-contents{
+	text-align: left;
+	word-wrap: break-word;
+}
+
+.btn-delete-media{
+    padding: 5px;
+    float:right;
+    cursor: pointer;
+}
+
+.btn-delete-media:hover{
+    cursor: hand;
+    background-color: #dddddd;
+}
+
+.btn-edit-media-metadata{
+    padding: 5px;
+    float:right;
+    color:black;
+    cursor: pointer;
+}
+
+.btn-edit-media-metadata:hover{
+    cursor: hand;
+    background-color: #dddddd;
+}
+
+.btn-remove-playlist-media{
+    padding: 5px;
+    float:right;
+    cursor: pointer;
+}
+
+.btn-remove-playlist-media:hover{
+    cursor: hand;
+    background-color: #dddddd;
+}
+
+.btn-account-remove-favorite{
+    padding: 5px;
+    float:right;
+    cursor: pointer;
+}
+
+.btn-account-remove-favorite:hover{
+    cursor: hand;
+    background-color: #dddddd;
+}
+
+.btn-edit-comment{
+    padding: 5px;
+    float:right;
+    cursor: pointer;
+}
+
+.btn-edit-comment:hover{
+    cursor: hand;
+    background-color: #dddddd;
+}
+
+.btn-delete-comment{
+    padding: 5px;
+    float:right;
+    cursor: pointer;
+}
+
+.btn-delete-comment:hover{
+    cursor: hand;
+    background-color: #dddddd;
+}
+
+.playlist-dropdown-container{
+    padding: 5px;
+    float:right;
+}
+
+.btn-favorite-media{
+    padding: 5px 5px 5px 5px;
+    font-size: 35px;
+    color: red;
+    float: right;
+    cursor: pointer;
+}
+
+.btn-favorite-media:hover{
+    cursor: hand;
+    background-color: #ffd900;
+}
+
+.download-media-btn{
+    font-size:20px !important;
+    margin-top:10px;
+    margin-right: 10px;
+    float:bottom;
+}
+
+.playlist-dropdown-toggle{
+    font-size:20px !important;
+}
+
+.playlist-dropdown-button{
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.playlist-dropdown-button:hover{
+    background-color: #bcff05;
+    cursor: hand;
+}
+
+.playlist-dropdown-text{
+    font-size: 15px;
+}
+
+.edit-comment-container{
+    position: relative;
+}
+
+.similar-media-details-container{
+	width: calc(100% - 5px);
+    margin: 0px auto 5px auto;
+	border: 5px solid rgb(39, 56, 212);
+	white-space: nowrap;
+	overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+	padding: 1px;
+}
+
+.comment-validation{
+    color: rgb(39, 56, 212);
+    padding: 10px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+.account-edit-sidenav-container{
+    height: 300px;
+    float: left;
+    min-width: 300px;
+    border-width: 2px 2px 2px 0px;
+    border-color: grey;
+    border-style: solid;
+    border-radius: 0px 10px 10px 0px;
+    padding: 0px;
+}
+
+.account-edit-sidenav-button{
+    margin:0px;
+    height: 40px;
+    line-height: 40px;
+    border-width: 2px 0px 0px 0px;
+    border-color:grey;
+    border-style:solid;
+    text-align:center;
+    width: 100%;
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+.account-edit-sidenav-button:hover{
+    background-color: #dddddd;
+    cursor: hand;
+}
+
+.account-edit-sidenav-button.bottom{
+    border-width: 2px 0px 2px 0px;
+}
+
+.account-edit-sidenav-button.active{
+    background-color: #bbbbbb;
+    cursor: pointer;
+}
+
+.account-edit-sidenav-button.active:hover{
+    cursor: pointer;
+}
+
+.sidenav-icon{
+    float: right;
+    line-height: 40px;
+    padding: 0px 5px;
+}
+
+.account-edit-form{
+    margin-left: 400px;
+    margin-right: 20px;
+    min-width: 600px;
+}
+
+.inbox-message-pane{
+	border: 5px solid rgb(39, 56, 212);
+	margin: 5px 5px;
+}
+
+.inbox-message{
+	font-size: 15px;
+	word-wrap: break-word;
+	white-space: pre-wrap;
+}
+
+.playlist-description-value{
+    padding: 0px 5px 0px 25px;
+    margin-bottom:5px;
+    word-wrap: break-word;
+}
+
+.btn-edit-playlist{
+    padding: 3px;
+    float:left;
+    cursor: pointer;
+    color: grey;
+}
+
+.btn-edit-playlist:hover{
+    cursor: hand;
+    background-color: #dddddd;
+}
+
+.btn-delete-playlist{
+    padding: 3px;
+    float:left;
+    cursor: pointer;
+}
+
+.btn-delete-playlist:hover{
+    cursor: hand;
+    background-color: red;
+}
+
+.playlist-media-container{
+    width: 300px;
+    text-align:center;
+}
+
+.playlist-media-details-container{
+	width: calc(100% - 5px);
+    margin: 0px auto 5px auto;
+	border: 5px solid rgb(39, 56, 212);
+	white-space: nowrap;
+	overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+	padding: 3px;
+}
+
+.btn-delete-playlist-media{
+    float:right;
+    cursor: pointer;
+}
+
+.btn-delete-playlist-media:hover{
+    cursor: hand;
+    background-color: red;
+}
+
+.edit-playlist-validation {
+    padding: 5px 0px 0px 0px;
+    font-size: 13px;
+    color: red;
+}
+
+.browse-body-content{
+    width: 90%;
+    min-width: 1200px;
+    padding: 0px 20px 0px 320px;
+    margin: 0px auto;
+}
+
+.browse-sidenav-container{
+    height: 350px;
+    float: left;
+    min-width: 300px;
+}
+
+.browse-sidenav-button{
+    margin:0px;
+    height: 100px;
+    line-height: 40px;
+    border-width: 2px 0px 0px 0px;
+    border-color:black;
+    border-style:solid;
+    font-size: 25px;
+    text-align:center;
+    width: 100%;
+    cursor: pointer;
+    background-color:rgb(155, 155, 155);
+}
+
+.browse-sidenav-button.active{
+    background-color: #bbbbbb;
+    cursor: pointer;
+}
+
+.browse-sidenav-button.active:hover{
+    cursor: pointer;
+}
+
+
+.browse-media-details-container{
+	width: 13.8vw;
+	border-width: 5px;
+	border-style: solid;
+	border-color: grey;
+	float: left;
+	white-space: nowrap;
+	overflow: hidden;
+    text-overflow: ellipsis;
+	margin-right: 15px;
+	margin-bottom: 10px;
+	padding: 3px 3px;
+}
+
+.browse-media-items-container {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 5px 0px 0px 5px;
+    overflow: auto;
+}
+
+.search-body-content{
+    width: 50%;
+    min-width: 1200px;
+    margin: 0px auto;
+}
+
