@@ -6,28 +6,28 @@
     }
     include_once "function.php";
 
-    //A PHP file to handle all ajax requests supplied by the edit account page
+   
     if(isset($_REQUEST['action']))
     {
         switch($_REQUEST['action'])
         {
             case 0:
-                //PHP code for updating profile information
+              
                 if(isset($_REQUEST['email']) && isset($_REQUEST['biography']) 
                 && isset($_SESSION['username']))
                 {
                     if(update_account_info($_SESSION['username'], $_REQUEST['biography'], $_REQUEST['email']))
                         echo "success";
                     else
-                        echo "Failed to update profile.";
+                        echo "Error updating profile.";
                 }
                 else if(!isset($_REQUEST['email']))
                 {
-                    echo "The email field is not set correctly.";
+                    echo "The email could not be set.";
                 }
                 else if(!isset($_REQUEST['biography']))
                 {
-                    echo "The biography field is not set correctly";
+                    echo "The biography is invalid";
                 }
                 else if(!isset($_SESSION['username']))
                 {
@@ -36,17 +36,17 @@
                 break;
             case 1:
                 //PHP code for updating account password
-                if(isset($_REQUEST['currentPassword']) && isset($_REQUEST['newPassword1']) 
+                if(isset($_REQUEST['currentPassword']) && isset($_REQUEST['passwordMatch1']) 
                 && isset($_SESSION['username']))
                 {
                     switch(update_user_pass($_SESSION['username'], $_REQUEST['currentPassword'],
-                        $_REQUEST['newPassword1']))
+                        $_REQUEST['passwordMatch1']))
                     {
                         case 0:
                             echo "success";
                             break;
                         case 1:
-                            echo "Your account is set incorrectly.";
+                            echo "error.";
                             break;
                         case 2:
                             echo "Incorrect current password entered.";
@@ -59,7 +59,7 @@
                 {
                     echo "The current password is not set correctly.";
                 }
-                else if(!isset($_REQUEST['newPassword1']))
+                else if(!isset($_REQUEST['passwordMatch1']))
                 {
                     echo "The new password is not set correctly";
                 }

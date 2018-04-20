@@ -1,12 +1,7 @@
-/* Javascript file for the browse page, adding functionality to the
- * side navigation pane and allowing for the dynamic updating of
- * the viewed media items.
- */
 
-//Runs when the document is ready to set onclick functions
 $(document).ready(function() {
 
-    //Set the onclick for the home nav button
+    //.onclick for the home button
     $('.browse-sidenav-button.home').click(function() {
         if(!($(this).hasClass('active')))
         {
@@ -17,21 +12,21 @@ $(document).ready(function() {
                 type: "POST"
             });
 
-            //Page is successfully loaded
+            //page load success
             init.done(function(data, textStatus, jqXHR) {
                 $('.browse-sidenav-button.active').removeClass('active');
                 button.addClass('active');
                 $('#bodyContent').html(data);
             });
            
-            //Page is not loaded successfully
+            //page failed to load
             init.fail(function(jqXHR, textStatus, errorThrown) {
                 alert("Failed to load home page.");
             });
         }
     });
 
-    //Set the onclick for the category nav buttons
+    //.onclick for the category button
     $('.browse-sidenav-button.category').click(function() {
         if(!($(this).hasClass('active')))
         {
@@ -53,7 +48,7 @@ $(document).ready(function() {
            
             //Page is not loaded successfully
             init.fail(function(jqXHR, textStatus, errorThrown) {
-                    alert("Failed to load category page.");
+                    alert("Category page could not load.");
             });
         }
     });

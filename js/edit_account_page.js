@@ -1,24 +1,20 @@
-/* Javascript file for AJAX requests, form submission, and validation for
- * editing profile information.
- */
 
 var isEmail = true;
 var isBio = true;
 var isCurrentPass = false;
 var isNewPass = false;
 
-//Function to validate an email address, returning true if the given
-//variable is a properly formatted email address
+//ensures that email address is valid format
 function validateEmail(email)
 {
     var regex = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     return regex.test(email);
 }
 
-//Runs when the document is ready to set onclick functions
+//.onclick functions
 $(document).ready(function() {
 
-    //A function to set the form submission and validation effects
+
     function setForm() {
         
         isEmail = true;
@@ -26,18 +22,18 @@ $(document).ready(function() {
         isCurrentPass = false;
         isNewPass = false;
 
-        if($('#updateProfileForm').length)
+        if($('#updateProfileMeta').length)
         {
-            $('#updateEmail').on('change', function() {
+            $('#updateEmailaddr').on('change', function() {
                 $("#updateProfileValidation").text('');
                 if(!validateEmail($(this).val()))
                 {
-                    $('#updatevalidateEmail').text('Invalid email entered.');
+                    $('#updatevalidateEmail').text('Invalid email address.');
                     isEmail = false;
                 }
                 else if($(this).val().length > 255)
                 {
-                    $('#updatevalidateEmail').text('Email address too long.');
+                    $('#updatevalidateEmail').text('Your email is too long.');
                     isEmail = false;
                 }
                 else
@@ -47,7 +43,7 @@ $(document).ready(function() {
                 }
             });
 
-            $('#updateSummary').on('change', function() {
+            $('#updateBio').on('change', function() {
                 $("#updateProfileValidation").text('');
                 if($(this).val().length > 750)
                 {
@@ -61,9 +57,8 @@ $(document).ready(function() {
                 }
             });
 
-            //On submit, update profile information if valid
-            //information is entered
-            $('#updateProfileForm').submit(function(){
+            //update profile information
+            $('#updateProfileMeta').submit(function(){
                 $("#updateProfileValidation").text('');
                 if(isEmail && isBio)
                 {
@@ -74,16 +69,16 @@ $(document).ready(function() {
                         data: serializedForm
                     });
                     
-                    //Let the user know the status of their request
+                    //feedback for request
                     request.done(function(data, textStatus, jqXHR) {
                         if(data === "success")
-                            $("#updateProfileValidation").text("Successfully updated profile information.");
+                            $("#updateProfileValidation").text("Successfully updated profile metadata.");
                         else
-                            $("#updateProfileValidation").text("Profile not updated successfully.");
+                            $("#updateProfileValidation").text("Profile failed to update.");
                     });
                     
                     request.fail(function(jqXHR, textStatus, errorThrown) {
-                        $("#updateProfileValidation").text("Profile not updated successfully.");
+                        $("#updateProfileValidation").text("Profile failed to update.");
                     });
                 }
                 return false;
@@ -91,11 +86,11 @@ $(document).ready(function() {
         }
 
 
-        if($('#updatePasswordForm').length)
+        if($('#updatePasswordinfo').length)
         {
             //Make sure the user enters their current password
             $('#currentPassword').on('change', function() {
-                $("#updatePasswordValidation").text('');
+                $("#validateUpdatedPassword").text('');
                 if($(this).val().length == 0)
                 {
                     $('#currentPasswordValidation').text('You must enter your current password.');
@@ -108,83 +103,82 @@ $(document).ready(function() {
                 }
             });
 
-            //Make sure new passwords are valid and match
-            $('#newPassword1').on('change', function() {
-                $("#updatePasswordValidation").text('');
+            //Make sure new passwords are valid
+            $('#passwordMatch1').on('change', function() {
+                $("#validateUpdatedPassword").text('');
                 if($(this).val().length < 8)
                 {
-                    $('#newPassword1Validation').text('Passwords must be at least 8 characters long.');
+                    $('#validatePasswordMatch1').text('You password must be at least 8 characters in length.');
                     isNewPass = false;
                 }
-                else if($('#newPassword2').val().length >= 8 &&
-                        $(this).val() != $('#newPassword2').val())
+                else if($('#passwordMatch2').val().length >= 8 &&
+                        $(this).val() != $('#passwordMatch2').val())
                 {
-                    $('#newPassword1Validation').text('');
-                    $('#newPassword2Validation').text('New passwords do not match.');
+                    $('#validatePasswordMatch1').text('');
+                    $('#validatePasswordMatch2').text('New password does not match.');
                     isNewPass = false;
                 }
-                else if($('#newPassword2').val().length >= 8 &&
-                        $(this).val() == $('#newPassword2').val())
+                else if($('#passwordMatch2').val().length >= 8 &&
+                        $(this).val() == $('#passwordMatch2').val())
                 {
-                    $('#newPassword1Validation').text('');
-                    $('#newPassword2Validation').text('');
+                    $('#validatePasswordMatch1').text('');
+                    $('#validatePasswordMatch2').text('');
                     isNewPass = true;
                 }
-                else if($('#newPassword2').val().length < 8)
+                else if($('#passwordMatch2').val().length < 8)
                 {
-                    $('#newPassword1Validation').text('');
+                    $('#validatePasswordMatch1').text('');
                     isNewPass = false;
                 }
                 else
                 {
-                    $('#newPassword1Validation').text('');
-                    $('#newPassword2Validation').text('');
+                    $('#validatePasswordMatch1').text('');
+                    $('#validatePasswordMatch2').text('');
                     isNewPass = false;
                 }
             });
 
             //Make sure new passwords are valid and match
-            $('#newPassword2').on('change', function() {
-                $("#updatePasswordValidation").text('');
+            $('#passwordMatch2').on('change', function() {
+                $("#validateUpdatedPassword").text('');
                 if($(this).val().length < 8)
                 {
-                    $('#newPassword2Validation').text('Passwords must be at least 8 characters long.');
+                    $('#validatePasswordMatch2').text('Passwords must have at least 8 characters.');
                     isNewPass = false;
                 }
-                else if($('#newPassword1').val().length >= 8 &&
-                        $(this).val() != $('#newPassword1').val())
+                else if($('#passwordMatch1').val().length >= 8 &&
+                        $(this).val() != $('#passwordMatch1').val())
                 {
-                    $('#newPassword1Validation').text('');
-                    $('#newPassword2Validation').text('New passwords do not match.');
+                    $('#validatePasswordMatch1').text('');
+                    $('#validatePasswordMatch2').text('New password does not match.');
                     isNewPass = false;
                 }
-                else if($('#newPassword1').val().length >= 8 &&
-                        $(this).val() == $('#newPassword1').val())
+                else if($('#passwordMatch1').val().length >= 8 &&
+                        $(this).val() == $('#passwordMatch1').val())
                 {
-                    $('#newPassword1Validation').text('');
-                    $('#newPassword2Validation').text('');
+                    $('#validatePasswordMatch1').text('');
+                    $('#validatePasswordMatch2').text('');
                     isNewPass = true;
                 }
-                else if($('#newPassword1').val().length < 8)
+                else if($('#passwordMatch1').val().length < 8)
                 {
-                    $('#newPassword2Validation').text('');
+                    $('#validatePasswordMatch2').text('');
                     isNewPass = false;
                 }
                 else
                 {
-                    $('#newPassword1Validation').text('');
-                    $('#newPassword2Validation').text('');
+                    $('#validatePasswordMatch1').text('');
+                    $('#validatePasswordMatch2').text('');
                     isNewPass = false;
                 }
             });
 
-            //On submit, update password if valid information
-            //is entered and let the user know the result.
-            $('#updatePasswordForm').submit(function(){
-                $("#updatePasswordValidation").text('');
+            //update pass
+            $('#updatePasswordinfo').submit(function(){
+                $("#validateUpdatedPassword").text('');
                 $("#currentPassword").change();
-                $("#newPassword1").change();
-                $("#newPassword2").change();
+                $("#passwordMatch1").change();
+                $("#passwordMatch2").change();
                 if(isCurrentPass && isNewPass)
                 {
                     var serializedForm = $(this).serialize() + "&action=1";
@@ -198,20 +192,20 @@ $(document).ready(function() {
                     request.done(function(data, textStatus, jqXHR) {
                         if(data === "success")
                         {
-                            $("#updatePasswordValidation").text("Successfully updated password.");
+                            $("#validateUpdatedPassword").text("Successfully updated password.");
                             //Clear password form
                             isCurrentPass = false;
                             isNewPass = false;
                             $("#currentPassword").val("");
-                            $("#newPassword1").val("");
-                            $("#newPassword2").val("");
+                            $("#passwordMatch1").val("");
+                            $("#passwordMatch2").val("");
                         }
                         else
-                            $("#updatePasswordValidation").text(data);
+                            $("#validateUpdatedPassword").text(data);
                     });
                     
                     request.fail(function(jqXHR, textStatus, errorThrown) {
-                        $("#updatePasswordValidation").text("Password not updated successfully.");
+                        $("#validateUpdatedPassword").text("Password not updated successfully.");
                     });
                 }
                 return false;
@@ -235,7 +229,7 @@ $(document).ready(function() {
             request.done(function(data, textStatus, jqXHR) {
                 $('.account-edit-sidenav-button.active').removeClass('active');
                 button.addClass('active');
-                $('#accountEditForm').html(data);
+                $('#editAccountMeta').html(data);
                 setForm();
             });
            
@@ -247,7 +241,7 @@ $(document).ready(function() {
     }); 
 
     //Set the onclick for the Update Password nav button
-    $('#updatePasswordTabButton').click(function() {
+    $('#changePasswordBtn').click(function() {
         if(!($(this).hasClass('active')))
         {
             var button = $(this);
@@ -261,7 +255,7 @@ $(document).ready(function() {
             request.done(function(data, textStatus, jqXHR) {
                 $('.account-edit-sidenav-button.active').removeClass('active');
                 button.addClass('active');
-                $('#accountEditForm').html(data);
+                $('#editAccountMeta').html(data);
                 setForm();
             });
            

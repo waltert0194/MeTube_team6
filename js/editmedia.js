@@ -2,15 +2,15 @@ title=true;
 keywords=true;
 $(document).ready(function (){
 	
-	 //disable submission until fields properly filled
+	 //require valid changes
         $('form').submit( function(){
 		$('#title').trigger('change');
 		$('#keywords').trigger('change');
                 if(title){
                        	if(keywords){
                              	return true;
-                        }else{alert("Keywords should contain only a-z and be separated by spaces.");}
-                }else{alert("You must have a title.");}
+                        }else{alert("Keywords should contain letters only and be separated by spaces.");}
+                }else{alert("Media must have title");}
                 return false;
         });
 	

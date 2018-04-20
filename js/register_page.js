@@ -1,175 +1,165 @@
-/* Javascript file for AJAX requests, form submission, and validation for
- * editing profile information.
- */
 
-var emailValid = false;
-var usernameValid = false;
-var passwordValid = false;
+var isEmail = false;
+var isUsername = false;
+var isPass = false;
 
-//Function to validate an email address, returning true if the given
-//variable is a properly formatted email address
 function emailValidation(email)
 {
     var regex = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     return regex.test(email);
 }
 
-//Function to validate a username, returning true if the given username
-//variable is only alphanumeric plus underscores
-function usernameValidation(username)
+function isUsernameation(username)
 {
     var regex = /^[a-zA-Z0-9_]+$/;
     return regex.test(username);
 }
 
-//Runs when the document is ready to set onclick functions
+//.onclick function
 $(document).ready(function() {
 
-    //When the user enters a username, make sure it is valid
+    //validate username
     $('#username').on('change', function() {
         if($(this).val().length == 0)
         {
-            $('#usernameValidation').text('You must enter a username.');
-            usernameValid = false;
+            $('#isUsernameation').text('Cannot have empty username.');
+            isUsername = false;
         }
         else if($(this).val().length > 30)
         {
-            $('#usernameValidation').text('Username cannot exceed 30 characters.');
-            usernameValid = false;
+            $('#isUsernameation').text('Username cannot be more than 30 characters.');
+            isUsername = false;
         }
-        else if(!usernameValidation($(this).val()))
+        else if(!isUsernameation($(this).val()))
         {
-            $('#usernameValidation').text('Username can only consist of letters, numbers, and underscores.');
-            usernameValid = false;
+            $('#isUsernameation').text('Username can include numbers, letters, and underscores_.');
+            isUsername = false;
         }
         else
         {
             var username = $(this).val();
-            
-            //Check if username already exists
             request = $.ajax({
                 url: "editAccountAjax.php",
                 type: "POST",
                 data: {'username': username, 'action': 3}
             });
             
-            //If the username exists, let the user know, otherwise clear validation
+            //success
             request.done(function(data, textStatus, jqXHR) {
                 if(data === "success")
                 {
-                    $("#usernameValidation").text("");
-                    usernameValid = true;
+                    $("#isUsernameation").text("");
+                    isUsername = true;
                 }
                 else
                 {
-                    $("#usernameValidation").text(data);
-                    usernameValid = false;
+                    $("#isUsernameation").text(data);
+                    isUsername = false;
                 }
             });
             
-            //Warn the user of error checking for username
+            //failure
             request.fail(function(jqXHR, textStatus, errorThrown) {
-                $("#usernameValidation").text("Error checking if username already exists.");
-                usernameValid = true;
+                $("#isUsernameation").text("Could not determine is username exists.");
+                isUsername = true;
             });            
         }
     });
 
-    //When the user enters an email, make sure it is valid
+    //validate email
     $('#email').on('change', function() {
         if(!emailValidation($(this).val()))
         {
-            $('#emailValidation').text('Invalid email entered.');
-            emailValid = false;
+            $('#emailValidation').text('Invalid email.');
+            isEmail = false;
         }
         else if($(this).val().length > 255)
         {
-            $('#emailValidation').text('Email address too long.');
-            emailValid = false;
+            $('#emailValidation').text('Email too long.');
+            isEmail = false;
         }
         else
         {
-            emailValid = true;
+            isEmail = true;
             $('#emailValidation').text('');
         }
     });
 
-    //Make sure passwords are valid and match
+    //validate password
     $('#password1').on('change', function() {
         if($(this).val().length < 8)
         {
-            $('#password1Validation').text('Passwords must be at least 8 characters long.');
-            passwordValid = false;
+            $('#password1Validation').text('Passwords need to be more than 8 characters');
+            isPass = false;
         }
         else if($('#password2').val().length >= 8 &&
                 $(this).val() != $('#password2').val())
         {
             $('#password1Validation').text('');
             $('#password2Validation').text('Passwords do not match.');
-            passwordValid = false;
+            isPass = false;
         }
         else if($('#password2').val().length >= 8 &&
                 $(this).val() == $('#password2').val())
         {
             $('#password1Validation').text('');
             $('#password2Validation').text('');
-            passwordValid = true;
+            isPass = true;
         }
         else if($('#password2').val().length < 8)
         {
             $('#password1Validation').text('');
-            passwordValid = false;
+            isPass = false;
         }
         else
         {
             $('#password1Validation').text('');
             $('#password2Validation').text('');
-            passwordValid = false;
+            isPass = false;
         }
     });
 
-    //Make sure passwords are valid and match
+    //validate passwords
     $('#password2').on('change', function() {
         if($(this).val().length < 8)
         {
-            $('#password2Validation').text('Passwords must be at least 8 characters long.');
-            passwordValid = false;
+            $('#password2Validation').text('Passwords need to be longer than 8 characters.');
+            isPass = false;
         }
         else if($('#password1').val().length >= 8 &&
                 $(this).val() != $('#password1').val())
         {
             $('#password1Validation').text('');
             $('#password2Validation').text('Passwords do not match.');
-            passwordValid = false;
+            isPass = false;
         }
         else if($('#password1').val().length >= 8 &&
                 $(this).val() == $('#password1').val())
         {
             $('#password1Validation').text('');
             $('#password2Validation').text('');
-            passwordValid = true;
+            isPass = true;
         }
         else if($('#password1').val().length < 8)
         {
             $('#password2Validation').text('');
-            passwordValid = false;
+            isPass = false;
         }
         else
         {
             $('#password1Validation').text('');
             $('#password2Validation').text('');
-            passwordValid = false;
+            isPass = false;
         }
     });
     
-    //On submit, register the user and link them to
-    //the login page if the registration succeeds
+    
     $('#registrationForm').submit(function() {
         $('#username').change();
         $('#email').change();
         $('#password1').change();
         $('#password2').change();
-        if(usernameValid && emailValid && passwordValid)
+        if(isUsername && isEmail && isPass)
         {
             var serializedForm = $(this).serialize() + "&action=2";
             request = $.ajax({
@@ -178,7 +168,7 @@ $(document).ready(function() {
                 data: serializedForm
             });
             
-            //If correct, redirect the user, otherwise warn them of the error
+            //success
             request.done(function(data, textStatus, jqXHR) {
                 if(data === "success")
                     window.location.href = "./index.php";
@@ -186,9 +176,9 @@ $(document).ready(function() {
                     alert(data);
             });
             
-            //Warn the user of the error
+            //failure
             request.fail(function(jqXHR, textStatus, errorThrown) {
-                alert("Error sending registration information.");
+                alert("could not register.");
             });
         }
         return false;

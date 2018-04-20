@@ -52,7 +52,7 @@
             {
 ?>
                 <div style="margin-left: 30px;">
-                    <form id="editPlaylistForm" method="post"> 
+                    <form id="editPlaylistMeta" method="post"> 
                         <input type="hidden" id="playlistid" name="playlistid" value="<?php echo $_GET['id']; ?>">
                         <h3>Edit Playlist</h3>
     

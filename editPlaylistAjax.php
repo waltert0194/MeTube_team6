@@ -6,13 +6,13 @@
     }
     include_once "function.php";
 
-    //A PHP file to handle all ajax requests supplied by the edit playlist page
+   
     if(isset($_REQUEST['action']))
     {
         switch($_REQUEST['action'])
         {
             case 0:
-                //PHP code for updating profile information
+              n
                 if(isset($_REQUEST['playlistid']) && isset($_REQUEST['name']) &&
                     isset($_REQUEST['description']) && isset($_REQUEST['keywords']))
                 {
@@ -21,27 +21,27 @@
                                                 $_REQUEST['description'], $keywordArray))
                         echo "success";
                     else
-                        echo "Failed to update playlist metadata.";
+                        echo "Failed playlist update.";
                 }
                 else if(!isset($_REQUEST['playlistid']))
                 {
-                    echo "The playlistid field is not set correctly.";
+                    echo "playlistid field error.";
                 }
                 else if(!isset($_REQUEST['name']))
                 {
-                    echo "The name field is not set correctly";
+                    echo "name field error";
                 }
                 else if(!isset($_REQUEST['description']))
                 {
-                    echo "The description field is not set correctly.";
+                    echo "description field error.";
                 }
                 else if(!isset($_REQUEST['keywords']))
                 {
-                    echo "The keywords field is not set correctly";
+                    echo "keywords field error";
                 }
                 break;
             default:
-                echo "Invalid AJAX action supplied.";
+                echo "Invalid AJAX not connected.";
                 break;
         }
     }

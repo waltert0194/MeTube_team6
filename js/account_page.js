@@ -1,8 +1,4 @@
-/* File to hold javascript for dynamic events on the account viewing
- * page, including sending AJAX requests.
- */
-
-var playlistNameValid = false;
+var validatePlaylist = false;
 
 $(document).ready(function() {
 
@@ -219,7 +215,7 @@ $(document).ready(function() {
         $('#cancelAddPlaylist').click(function(){
             $('#playlistName').val('');
             $('#playlistNameValidation').text('');
-            playlistNameValid = false;
+            validatePlaylist = false;
         });
     }
 
@@ -230,17 +226,17 @@ $(document).ready(function() {
             if($(this).val().length == 0)
             {
                 $('#playlistNameValidation').text('Playlist must have a name.');
-                playlistNameValid = false;
+                validatePlaylist = false;
             }
             else if($(this).val().length > 40)
             {
                 $('#playlistNameValidation').text('Playlist name cannot exceed 40 characters.');
-                playlistNameValid = false;
+                validatePlaylist = false;
             }
             else
             {
                 $('#playlistNameValidation').text('');
-                playlistNameValid = true;
+                validatePlaylist = true;
             }
         });
     }
@@ -250,7 +246,7 @@ $(document).ready(function() {
     {
         $('#submitAddPlaylist').click(function(){
             $('#playlistName').change();
-            if(playlistNameValid)
+            if(validatePlaylist)
             {
                 var playlistName = $('#playlistName').val();
                 var button = $(this);

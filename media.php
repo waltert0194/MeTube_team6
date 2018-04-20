@@ -89,14 +89,14 @@ if(isset($_GET['id']))
                                         switch(substr($simType,0,5))
                                         {
                                             case "video":
-                                                echo "<span class=\"glyphicon glyphicon-film\"></span> ";
-                                                break;
-                                            case "audio":
-                                                echo "<span class=\"glyphicon glyphicon-music\"></span> ";
-                                                break;
-                                            case "image":
-                                                echo "<span class=\"glyphicon glyphicon-picture\"></span> ";
-                                                break;
+                                            echo "🎬";
+                                            break;
+                                        case "audio":
+                                            echo "🎼";
+                                            break;
+                                        case "image":
+                                            echo "📸";
+                                            break;
                                             default: echo substr($simType,0,5);
                                         }
 
@@ -149,15 +149,16 @@ if(isset($_GET['id']))
                                 echo "<div class='similar-media-details-container'>";
                                 switch(substr($simType,0,5))
                                 {
+                                   
                                     case "video":
-                                        echo "<span class=\"glyphicon glyphicon-film\"></span> ";
-                                        break;
-                                    case "audio":
-                                        echo "<span class=\"glyphicon glyphicon-music\"></span> ";
-                                        break;
-                                    case "image":
-                                        echo "<span class=\"glyphicon glyphicon-picture\"></span> ";
-                                        break;
+                                    echo "🎬";
+                                    break;
+                                case "audio":
+                                    echo "🎼";
+                                    break;
+                                case "image":
+                                    echo "📸";
+                                    break;
                                     default: echo substr($mediatype,0,5);
                                 }
 

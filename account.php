@@ -66,7 +66,7 @@ if(isset($_GET['username']))
 					
 					echo $decodedUsername."'s Profile";
 					
-					$issubbed = 0;//not subbed
+					$issubbed = 0;
 					if($query = mysqli_prepare(db_connect_id(), "SELECT * FROM subscription WHERE subscriber_username=? AND subscribee_username=?"))
 					{
 						mysqli_stmt_bind_param($query, "ss", $_SESSION['username'], $decodedUsername);
@@ -75,11 +75,11 @@ if(isset($_GET['username']))
 						mysqli_stmt_close($query);
 					}
 					if($result)
-						$issubbed = 1;//subbed
+						$issubbed = 1;
 					elseif(!isset($_SESSION['username']))
-						$issubbed = 2;//login
+						$issubbed = 2;
 					elseif($_SESSION['username'] == $decodedUsername)
-						$issubbed = 3;//edit account
+						$issubbed = 3;
 
 					echo "<br/><br/><br/></h3>";
 					echo "<button type=\"button\" id=\"editsub\" class=\"btn btn-primary\" value=".$issubbed.">";
@@ -108,7 +108,7 @@ if(isset($_GET['username']))
 					echo"<br/><br/>";
 					?>
 					<h4>
-						About me:
+						My Info:
 					</h4>
 					<div style="font-size: 15px">
 						<?php
@@ -196,13 +196,13 @@ if(isset($_GET['username']))
 								switch(substr($mediatype,0,5))
 								{
 									case "video":
-										echo "<span class=\"glyphicon glyphicon-film\"></span> ";
+										echo "🎬";
 										break;
 									case "audio":
-										echo "<span class=\"glyphicon glyphicon-music\"></span> ";
+										echo "🎼";
 										break;
 									case "image":
-										echo "<span class=\"glyphicon glyphicon-picture\"></span> ";
+										echo "📸";
 										break;
 									default: echo substr($mediatype,0,5);
 								}
@@ -276,13 +276,13 @@ if(isset($_GET['username']))
 										switch(substr($mediatype,0,5))
 										{
 											case "video":
-												echo "<span class=\"glyphicon glyphicon-film\"></span> ";
+												echo "🎬";
 												break;
 											case "audio":
-												echo "<span class=\"glyphicon glyphicon-music\"></span> ";
+												echo "🎼";
 												break;
 											case "image":
-												echo "<span class=\"glyphicon glyphicon-picture\"></span> ";
+												echo "📸";
 												break;
 											default: echo substr($mediatype,0,5);
 										}
@@ -327,13 +327,13 @@ if(isset($_GET['username']))
 								switch(substr($mediatype,0,5))
 								{
 									case "video":
-										echo "<span class=\"glyphicon glyphicon-film\"></span> ";
+										echo "🎬";
 										break;
 									case "audio":
-										echo "<span class=\"glyphicon glyphicon-music\"></span> ";
+										echo "🎼";
 										break;
 									case "image":
-										echo "<span class=\"glyphicon glyphicon-picture\"></span> ";
+										echo "📸";
 										break;
 									default: echo substr($mediatype,0,5);
 								}

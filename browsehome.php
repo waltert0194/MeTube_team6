@@ -49,13 +49,13 @@ if(isset($_SESSION['username']) && user_exist_check($_SESSION['username']) == 1)
         }
         else
         {
-            echo "<h4>No recent subscription activity found.<h4>";
+            echo "<h4>No recent subscriptions.<h4>";
         }
         mysqli_stmt_close($query);
     }
     else
     {
-        echo "<h4>No recent subscription activity found.<h4>";
+        echo "<h4>No recent subscriptions.<h4>";
     }
     echo "</div>";
 }

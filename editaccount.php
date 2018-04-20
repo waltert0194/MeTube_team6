@@ -36,13 +36,13 @@
             Update Profile Info 🡺 
            
         </div>
-        <div id="updatePasswordTabButton" class='account-edit-sidenav-button bottom'>
+        <div id="changePasswordBtn" class='account-edit-sidenav-button bottom'>
             Change Password 🡺 
             
         </div>
     </div>
 
-    <div id="accountEditForm" class="account-edit-form">
+    <div id="editAccountMeta" class="account-edit-form">
         <?php include "editprofileinfo.php"; ?>
     </div>
 </body>

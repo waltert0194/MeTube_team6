@@ -1,8 +1,5 @@
 $(document).ready(function(){
 
-	/* sets reply buttons to add recipient name to messaging area and
-	 * sets typing foucs to the message box
-	 */
 	$('.btn-reply').click(function(){
 		var sender = $(this).val();
 
@@ -37,9 +34,6 @@ $(document).ready(function(){
 		});
     }
 
-	/* Sends an ajax request to try to send the message to the given recipients
-	 * upon clicking the send button
-	 */
 	$('#sendmessage').click(function(){
 		var recipientlist = $('#recipients').val();
 		var message = $('#messagecontents').val();
@@ -56,41 +50,41 @@ $(document).ready(function(){
 				$('#recipients').val("");
 				$('#messagecontents').val("");
 				$('#messageerror').text("");
-				$('#messagesuccess').text("Message sent successfully");
+				$('#messagesuccess').text("Message Sent");
                 refreshSentMessages();
 			}
 			else if(data == "empty")
 			{
 				$('#messagesuccess').text("");
-				$('#messageerror').text("Message cannot be empty");
+				$('#messageerror').text("Cannot send empty message");
 			}
 			else if (data == "short")
 			{
 				$('#messagesuccess').text("");
-				$('#messageerror').text("Message must be over 10 characters");
+				$('#messageerror').text("Message must be longer than 10 characters");
 			}
 			else if(data == "long")
 			{
 				$('#messagesuccess').text("");
-				$('#messageerror').text("Message cannot be over 1000 characters");
+				$('#messageerror').text("Message must be shorter than 1000 characters");
 			}
 			else if(data == "failed")
 			{
 				$('#messagesuccess').text("");
 				$('#messageerror').text("");
-				alert("Failed to send message");
+				alert("Could not send message");
 			}
 			else if(data == "nousers")
 			{
 				$('#messagesuccess').text("");
-				$('#messageerror').text("Must have one or more recipients");
+				$('#messageerror').text("Must send message to at least one user");
 			}
 			else
 				alert(data);
 		});
 
 		request.fail(function(jqXHR, textStatus, errorThrown){
-			alert("Failed to send message");
+			alert("could not send message");
 		});
 	});
 });

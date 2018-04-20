@@ -25,12 +25,12 @@ if(isset($_SESSION['username']) && user_exist_check($_SESSION['username']) == 1)
     {
 ?>
         <h3>Edit User Info</h3>
-        <form id="updateProfileForm" method="post">
+        <form id="updateProfileMeta" method="post">
             <h4 style="margin-bottom:0px; margin-top: 20px;">Email Address</h4>
             <table>
                 <tr>
                     <td>
-                        <input id="updateEmail" name="email" type="text" class="form-control" style="width: 300px;" maxlength="255" value="<?php echo $email; ?>">
+                        <input id="updateEmailAddr" name="email" type="text" class="form-control" style="width: 300px;" maxlength="255" value="<?php echo $email; ?>">
                     </td> 
                     <td>
                         <h5 id="updateEmailValidation" style="padding-left:10px; color: red"></h5>
@@ -42,7 +42,7 @@ if(isset($_SESSION['username']) && user_exist_check($_SESSION['username']) == 1)
             <table>
                 <tr>
                     <td>
-                        <textarea id="updateSummary" name="biography" class="form-control" rows="3" style="width: 300px; resize: none" maxlength="750"><?php echo $biography; ?></textarea>
+                        <textarea id="updateBio" name="biography" class="form-control" rows="3" style="width: 300px; resize: none" maxlength="750"><?php echo $biography; ?></textarea>
                     </td> 
                     <td>
                         <h5 id="updateSummaryValidation" style="padding-left:10px; color: red"></h5>
@@ -51,7 +51,7 @@ if(isset($_SESSION['username']) && user_exist_check($_SESSION['username']) == 1)
             </table>
             
             <input style="margin-top: 20px;" value="Submit" name="submit" type="submit" class="btn btn-primary"/>
-            <h5 id="updateProfileValidation" style="color: blue"></h5>
+            <h5 id="" style="color: blue"></h5>
         </form>
 <?php
     }

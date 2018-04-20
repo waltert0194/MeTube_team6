@@ -10,7 +10,7 @@ if(isset($_SESSION['username']) && user_exist_check($_SESSION['username']) == 1)
 {
 ?>
     <h3>Update Password</h3>
-    <form id="updatePasswordForm" method="post">
+    <form id="updatePasswordinfo" method="post">
         <h4 style="margin-bottom:0px; margin-top: 20px;">Current Password</h4>
 
         <table>
@@ -28,10 +28,10 @@ if(isset($_SESSION['username']) && user_exist_check($_SESSION['username']) == 1)
         <table>
             <tr>
                 <td>
-                    <input id="newPassword1" name="newPassword1" type="password" maxlength="100" class="form-control" style="width: 300px;">
+                    <input id="passwordMatch1" name="passwordMatch1" type="password" maxlength="100" class="form-control" style="width: 300px;">
                 </td> 
                 <td>
-                    <h5 id="newPassword1Validation" style="padding-left:10px; color: red"></h5>
+                    <h5 id="validatePasswordMatch1" style="padding-left:10px; color: red"></h5>
                 </td>
             </tr>
         </table>
@@ -40,22 +40,22 @@ if(isset($_SESSION['username']) && user_exist_check($_SESSION['username']) == 1)
          <table>
             <tr>
                 <td>
-                    <input id="newPassword2" name="newPassword2" type="password" class="form-control" maxlength="100" style="width: 300px;">
+                    <input id="passwordMatch2" name="passwordMatch2" type="password" class="form-control" maxlength="100" style="width: 300px;">
                 </td> 
                 <td>
-                    <h5 id="newPassword2Validation" style="padding-left:10px; color: red"></h5>
+                    <h5 id="validatePasswordMatch2" style="padding-left:10px; color: red"></h5>
                 </td>
             </tr>
         </table>
         
         <input style="margin-top: 20px;" value="Submit" name="submit" type="submit" class="btn btn-primary"/>
             
-        <h5 id="updatePasswordValidation" style="color: blue"></h5>
+        <h5 id="validateUpdatedPassword" style="color: blue"></h5>
     </form>
 <?php
 }
 else
 {
-    echo "<h3>Unable to retrieve account.</h3>";
+    echo "<h3>Unable to fetch account.</h3>";
 }
 ?>

@@ -60,9 +60,7 @@ if(!isset($_SESSION['username'])
                 <h6 style="margin-bottom:0px; margin-top: 0px;">Separate with a space</h6>
                 <input value="<?php echo get_media_keywords($_GET['id']); ?>"  name="keywords" type="text" id="keywords" class="form-control" style="width: 550px; margin-bottom: 20px">
 
-        <!--<h4 style="margin-bottom:0px; margin-top: 20px;">Allow Comments?</h4>
-                <input name="allowComments" type="checkbox" id="allowComments" class="form-control" style="float: left; width: 20px; height: 20px;" <?php if(getAllowedCommentsFromMedia($_GET['id'])) echo "checked value=\"checked\">";?>
-<br><br> -->
+        
 <input id="submitBtn" style="margin-left: 0px; margin-bottom 20px" value="Save Changes" name="submit" type="submit" class="btn btn-primary"/> 
 
 </form>

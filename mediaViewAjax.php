@@ -72,7 +72,7 @@
                             <br>
                             <input type="hidden" name="commentidField" value="<?php echo $com_id; ?>">
                             <input type="submit" name="commentEditSubmit" class="btn btn-primary btn-right-align btn-comment-edit-submit" value="Submit">
-                            <input type="button" name="commentEditCancel" class="btn btn-primary btn-right-align btn-comment-edit-cancel" value="Cancel">
+                            <input type="button" name="commentEditCancel" class="btn btn-primary btn-right-align editCancel-comment" value="Cancel">
                             <p class="comment-validation"></p>
                         </form>
                         <?php

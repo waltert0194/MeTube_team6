@@ -26,7 +26,7 @@ if(isset($_GET['id']))
 {
     $_SESSION['prevpage'] = "playlist.php?id=".$_GET['id'];
     echo "<div id='bodyContent' class='body-content'>";
-    //Get the media's information from the database
+    //Get metadata for media
     if($query = mysqli_prepare(db_connect_id(), "SELECT username, creation_date, name, description FROM playlist WHERE playlist_id=?"))
     {
         mysqli_stmt_bind_param($query, "i", $_GET['id']);
@@ -87,7 +87,6 @@ if(isset($_GET['id']))
         <div id='playlistMediaContainer' class='playlist-media-container'>
         <div style='height: 5px'></div>
 <?php
-            //Get and display all media in the playlist
             if($mediaQuery = mysqli_prepare(db_connect_id(), "SELECT media.title, media.type, media.mediaid, 
                 media.upload_date, media.username, media.category FROM playlist_media INNER JOIN media ON 
                 playlist_media.mediaid=media.mediaid WHERE playlist_media.playlist_id=?
@@ -137,12 +136,12 @@ if(isset($_GET['id']))
                     }
                 }
                 else
-                    echo "<h5>There is no media in this playlist yet.</h5>";
+                    echo "<h5>No media in this playlist.</h5>";
                 mysqli_stmt_close($mediaQuery);
             }
             else
             {
-                echo "<h5>There is no media in this playlist yet.</h5>";
+                echo "<h5>No media in this playlist.</h5>";
             }
 ?>
         </div>
@@ -154,7 +153,7 @@ if(isset($_GET['id']))
     {
 ?>
         <div class="alert alert-danger" style="text-align: center">
-            <strong>Error:</strong> The selected playlist could not be found.
+            <strong>Error:</strong> Playlist not found.
         </div>
 <?php
     }

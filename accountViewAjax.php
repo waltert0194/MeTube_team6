@@ -59,7 +59,7 @@ if(isset($_REQUEST['action']))
             }
             else
             {
-                echo "The mediaid field is not properly set.";
+                echo "The mediaid field is invalid";
             }
             break;
 		default:
@@ -68,6 +68,6 @@ if(isset($_REQUEST['action']))
 	}
 }
 else
-	echo "The action was not set correctly";
+	echo "error";
 
 ?>

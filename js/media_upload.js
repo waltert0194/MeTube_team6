@@ -3,7 +3,7 @@ var file = false;
 var keywords = true;
 $(document).ready(function(){
 	
-	//disable submission until fields properly filled
+	//ensure valid submission
 	$('form').submit( function(){
 		if(title){
 			if(file){
@@ -11,13 +11,15 @@ $(document).ready(function(){
 					upload = document.getElementById('fileInput');
 					if(upload && upload.files && upload.files[0] && upload.files[0].size < 52428800) //SIZE HERE 
 						return true;
-					else alert("File is too large (50 MiB max), or your browser is out of date.");
-				}else{alert("Keywords should contain only a-z and be separated by spaces.");}
-			}else{alert("Select a file of supported file type for upload.");}
-		}else{alert("You must have a title.");}
+					else alert("File is too large.");
+				}else{alert("Keywords should only have letters and be separated by spaces.");}
+			}else{alert("Select a file of supported file type.");}
+		}else{alert("Your media must have a title.");}
 		return false;
         });
 	
+
+	//ensure the correct file type
 	$('#fileInput').on('change', function(){
 		if($(this).val() !== ""){
 			var ext = $('#fileInput').val().split('.').pop().toLowerCase();
@@ -28,6 +30,7 @@ $(document).ready(function(){
 		}else file = false;
 	});
 
+	//title
 	$('#title').on('change', function(){
 		if($(this).val() !== ""){
 			title = true;

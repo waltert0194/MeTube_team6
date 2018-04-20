@@ -2,12 +2,12 @@
 include "mysqlClass.inc.php";
 
 
-//return username with from media with id
+//return username 
 function getUsernameFromMedia($id){
 	 if($query = mysqli_prepare(db_connect_id(), "SELECT username FROM media WHERE mediaid=?"))
     {
         mysqli_stmt_bind_param($query, "i", $id);
-        if(!mysqli_stmt_execute($query)) return null; //Query failed
+        if(!mysqli_stmt_execute($query)) return null; 
         mysqli_stmt_bind_result($query, $fetchedUsername);
         $exists = mysqli_stmt_fetch($query);
         mysqli_stmt_close($query);
@@ -19,7 +19,7 @@ function getUsernameFromMedia($id){
     }
     else
     {
-        return null; //Could not connect
+        return null; 
     }
 	return null;
 }
@@ -35,7 +35,7 @@ function getTitleFromMedia($id){
         mysqli_stmt_close($query);
 
         if($exists)
-            return $title; //User exists
+            return $title; 
         else
             return null; //User does not exist
     }
@@ -50,7 +50,7 @@ function getDescriptionFromMedia($id){
          if($query = mysqli_prepare(db_connect_id(), "SELECT description FROM media WHERE mediaid=?"))
     {
         mysqli_stmt_bind_param($query, "i", $id);
-        if(!mysqli_stmt_execute($query)) return null; //Query failed
+        if(!mysqli_stmt_execute($query)) return null; 
         mysqli_stmt_bind_result($query, $fetchedDescription);
         $exists = mysqli_stmt_fetch($query);
         mysqli_stmt_close($query);
@@ -62,7 +62,7 @@ function getDescriptionFromMedia($id){
     }
     else
     {
-        return null; //Could not connect
+        return null; 
     }
         return null;
 }
@@ -72,7 +72,7 @@ function getCategoryFromMedia($id){
          if($query = mysqli_prepare(db_connect_id(), "SELECT category FROM media WHERE mediaid=?"))
     {
         mysqli_stmt_bind_param($query, "i", $id);
-        if(!mysqli_stmt_execute($query)) return null; //Query failed
+        if(!mysqli_stmt_execute($query)) return null; 
         mysqli_stmt_bind_result($query, $fetchedCat);
         $exists = mysqli_stmt_fetch($query);
         mysqli_stmt_close($query);
@@ -84,17 +84,17 @@ function getCategoryFromMedia($id){
     }
     else
     {
-        return null; //Could not connect
+        return null; 
     }
         return null;
 }
 
-//return whether comments are allowed or not
+
 function getAllowedCommentsFromMedia($id){
          if($query = mysqli_prepare(db_connect_id(), "SELECT allow_comments FROM media WHERE mediaid=?"))
     {
         mysqli_stmt_bind_param($query, "i", $id);
-        if(!mysqli_stmt_execute($query)) return false; //Query failed
+        if(!mysqli_stmt_execute($query)) return false; 
         mysqli_stmt_bind_result($query, $comments);
         $exists = mysqli_stmt_fetch($query);
         mysqli_stmt_close($query);
@@ -111,17 +111,14 @@ function getAllowedCommentsFromMedia($id){
         return false;
 }
 
-//Takes a set of keywords as a space-separated string and returns an
-//array of those keywords such that each element is a keyword and all
-//keywords are lowercase
+
 function array_from_keywords($keywords)
 {
     $lower = strtolower($keywords);
     return array_filter(preg_split("/\s+/", $lower), function($elem) {return $elem != "";});
 }
 
-//Gets the number of rows matched by the last MySQL
-//query sent to the database given by $link.
+
 function get_matched_rows($link)
 {
     return preg_match("!\d+!", mysqli_info($link));
@@ -130,11 +127,7 @@ function get_matched_rows($link)
 
 
 
-// Check if the given username exists in the database.
-// Return codes:    0 - User does not exist
-//                  1 - User does exist
-//                  2 - Could not connect to server
-//                  3 - Could not execute query
+
 function user_exist_check($username)
 {
     if($query = mysqli_prepare(db_connect_id(), "SELECT username FROM account WHERE username=?"))
@@ -146,20 +139,17 @@ function user_exist_check($username)
         mysqli_stmt_close($query);
 
         if($exists)
-            return 1; //User exists
+            return 1;
         else
-            return 0; //User does not exist
+            return 0; 
     }
     else
     {
-        return 2; //Could not connect
+        return 2;
     }
 }
 
-//Adds a new account to the database, setting the username, password, and email
-//Return codes:     0 - Query failed
-//                  1 - Account successfully added
-//                  2 - User already exists
+
 function add_account_to_db($username, $password, $email)
 {
     $userExists = user_exist_check($username);
@@ -172,7 +162,6 @@ function add_account_to_db($username, $password, $email)
     {
         if($userExists == 0)
         {
-            //Hash the password before storing it so it is not in plaintext
 			$hash = password_hash($password, PASSWORD_DEFAULT);
 			
             if($query = mysqli_prepare(db_connect_id(), "INSERT INTO account (username, password, email) VALUES (?, ?, ?)"))
@@ -182,7 +171,7 @@ function add_account_to_db($username, $password, $email)
                 mysqli_stmt_close($query);
 
                 if($insert)
-                    return 1; //New user correctly inserted
+                    return 1;
                 else
                     return 0;
             }
@@ -193,16 +182,11 @@ function add_account_to_db($username, $password, $email)
         }
         else
         {
-			return 2; //Username already exists
+			return 2; 
 		}
 	}
 }
 
-//Checks to see whether the supplied password is the correct one for the
-//given username. Dies if it cannot connect to the database.
-//Return codes:     0 - Correct password provided
-//                  1 - Account does not exist
-//                  2 - Incorrect password provided
 function user_pass_check($username, $password)
 {
     if($query = mysqli_prepare(db_connect_id(), "SELECT password FROM account WHERE username=?"))
@@ -237,11 +221,7 @@ function user_pass_check($username, $password)
 	}
 }
 
-//Updates the given user's password to the given new password, as long as the
-//correct current password is supplied. Dies if it cannot connect to the database.
-//Return Codes:     0 - Password successfully changed
-//                  1 - Account does not exist
-//                  2 - Wrong current password provided
+
 function update_user_pass($username, $currpassword, $newpassword)
 {
     $passcheck = user_pass_check($username, $currpassword);
@@ -273,9 +253,6 @@ function update_user_pass($username, $currpassword, $newpassword)
 
 }
 
-//Sets the last access time for the given media to now
-//This was provided by the TA. It is not consistent with the current
-//structure of the database.
 function updateMediaTime($mediaid)
 {
     if($query = mysqli_prepare(db_connect_id(), "UPDATE media SET lastaccesstime=NOW() WHERE mediaid=?"))
@@ -296,7 +273,7 @@ function updateMediaTime($mediaid)
 
 function upload_error($result)
 {
-	//view erorr description in http://us2.php.net/manual/en/features.file-upload.errors.php
+	
 	switch ($result){
 	case 1:
 		return "UPLOAD_ERR_INI_SIZE";
@@ -315,8 +292,6 @@ function upload_error($result)
 	}
 }
 
-//Change the biography and email for an existing account given by username. Returns true
-//on a successful change, false on an unsuccessful change.
 function update_account_info($username, $biography, $email)
 {
     if($query = mysqli_prepare(db_connect_id(), "UPDATE account SET biography=?, email=? WHERE username=?"))
@@ -340,11 +315,10 @@ function update_account_info($username, $biography, $email)
     }
 }
 
-//Removes the media item with the given id from both the database and the filesystem.
-//Returns true on success, false on failure.
+
 function remove_media($mediaid)
 {
-    //Get the filepath to delete file later
+   
     if($query = mysqli_prepare(db_connect_id(), "SELECT path FROM media WHERE mediaid=?"))
     {
         mysqli_stmt_bind_param($query, "i", $mediaid);
@@ -385,10 +359,7 @@ function remove_media($mediaid)
     return true;
 }
 
-//Sets the metadata for the media item with the given mediaid to have the given title,
-//description, category, keywords, and allow comments status. The keywords should take
-//the form of an array of strings containing a single keyword each. Returns true on a
-//successful change, false on an unsuccessful change.
+
 function update_media_metadata($mediaid, $title, $description, $category, $keywords, $allow_comments)
 {
     if($query = mysqli_prepare(db_connect_id(), "UPDATE media SET title=?, description=?,
@@ -422,8 +393,6 @@ function update_media_metadata($mediaid, $title, $description, $category, $keywo
     return $success;
 }
 
-//Adds the given keyword to the media item with the given id. Returns true on
-//success, false on failure.
 function add_media_keyword($mediaid, $media_key)
 {
     if($query = mysqli_prepare(db_connect_id(), "INSERT INTO media_keyword (mediaid, media_key) VALUES (?, ?)"))
@@ -449,8 +418,7 @@ function add_media_keyword($mediaid, $media_key)
 }
 
 
-//Deletes all the keywords for the media item with the given mediaid. Returns true
-//on success, false on failure.
+
 function remove_media_keywords($mediaid)
 {
     if($query = mysqli_prepare(db_connect_id(), "DELETE FROM media_keyword WHERE mediaid=?"))
@@ -474,8 +442,6 @@ function remove_media_keywords($mediaid)
     }
 }
 
-//Gets all the keywords for the media item with the given mediaid. Returns the keywords
-//as a space-separated string of keywords, or null on failure.
 function get_media_keywords($mediaid)
 {
     if($query = mysqli_prepare(db_connect_id(), "SELECT media_key FROM media_keyword WHERE mediaid=?"))
@@ -530,8 +496,6 @@ function add_comment($username, $mediaid, $message)
     }
 }
 
-//Removes the comment with the given commentid. Returns true on success,
-//false on failure.
 function remove_comment($commentid)
 {
     if($query = mysqli_prepare(db_connect_id(), "DELETE FROM comment WHERE com_id=?"))
@@ -555,8 +519,7 @@ function remove_comment($commentid)
     }
 }
 
-//Updates the comment with the given commentid to have the given message.
-//Returns true on success, false on failure.
+
 function update_comment($commentid, $message)
 {
     if($query = mysqli_prepare(db_connect_id(), "UPDATE comment SET message=? WHERE com_id=?"))
@@ -580,8 +543,7 @@ function update_comment($commentid, $message)
     }
 }
 
-//Adds a subscription of the given subscriber to the given subscribee.
-//Returns true on success, false on failure.
+
 function add_subscription($subscriber_username, $subscribee_username)
 {
     if($query = mysqli_prepare(db_connect_id(), "INSERT INTO subscription
@@ -590,7 +552,7 @@ function add_subscription($subscriber_username, $subscribee_username)
         mysqli_stmt_bind_param($query, "ss", $subscriber_username, $subscribee_username);
         $result = mysqli_stmt_execute($query);
         $affected = mysqli_affected_rows(db_connect_id());
-        $errno = mysqli_errno(db_connect_id()); //Report success on error if it was just a duplicate entry warning
+        $errno = mysqli_errno(db_connect_id()); 
         mysqli_stmt_close($query);
         if ((!$result || $affected < 1) && ($errno != 1062))
         {
@@ -607,8 +569,7 @@ function add_subscription($subscriber_username, $subscribee_username)
     }
 }
 
-//Removes the subscription of the given sobscriber to the given subscribee.
-//Returns true on success, false on failure.
+
 function remove_subscription($subscriber_username, $subscribee_username)
 {
     if($query = mysqli_prepare(db_connect_id(), "DELETE FROM subscription
@@ -633,8 +594,6 @@ function remove_subscription($subscriber_username, $subscribee_username)
     }
 }
 
-//Adds a favorite of the account with the given username of the media
-//with the given id. Returns true on success, false on failure.
 function add_favorited_media($username, $mediaid)
 {
     if($query = mysqli_prepare(db_connect_id(), "INSERT INTO favorited_media
@@ -643,7 +602,7 @@ function add_favorited_media($username, $mediaid)
         mysqli_stmt_bind_param($query, "si", $username, $mediaid);
         $result = mysqli_stmt_execute($query);
         $affected = mysqli_affected_rows(db_connect_id());
-        $errno = mysqli_errno(db_connect_id()); //Report success on error if it was just a duplicate entry warning
+        $errno = mysqli_errno(db_connect_id()); 
         mysqli_stmt_close($query);
         if ((!$result || $affected < 1) && ($errno != 1062))
         {
@@ -660,8 +619,7 @@ function add_favorited_media($username, $mediaid)
     }
 }
 
-//Removes a favorite of the account with the given username of the media
-//with the given id. Returns true on success, false on failure.
+
 function remove_favorited_media($username, $mediaid)
 {
     if($query = mysqli_prepare(db_connect_id(), "DELETE FROM favorited_media
@@ -686,8 +644,6 @@ function remove_favorited_media($username, $mediaid)
     }
 }
 
-//Creates a playlist with the given name under the user with the given
-//username. Returns the new playlist's id on success, false on failure.
 function create_playlist($username, $playlist_name)
 {
     if($query = mysqli_prepare(db_connect_id(), "INSERT INTO playlist
@@ -712,8 +668,7 @@ function create_playlist($username, $playlist_name)
     }
 }
 
-//Removes the playlist with the given playlist_id. Returns true
-//on success, false on failure.
+
 function remove_playlist($playlist_id)
 {
     if($query = mysqli_prepare(db_connect_id(), "DELETE FROM playlist
@@ -738,8 +693,6 @@ function remove_playlist($playlist_id)
     }
 }
 
-//Returns true if the playlist with the given playlist_id
-//contains the media with the given mediaid, false otherwise
 function get_playlist_contains_media($playlist_id, $mediaid)
 {
     if($query = mysqli_prepare(db_connect_id(), "SELECT playlist_id FROM playlist_media
@@ -765,8 +718,7 @@ function get_playlist_contains_media($playlist_id, $mediaid)
     }
 }
 
-//Adds the given keyword to the playlist with the given id. Returns true on
-//success, false on failure.
+
 function add_playlist_keyword($playlist_id, $keyword)
 {
     if($query = mysqli_prepare(db_connect_id(), "INSERT INTO playlist_keyword 
@@ -775,7 +727,7 @@ function add_playlist_keyword($playlist_id, $keyword)
         mysqli_stmt_bind_param($query, "is", $playlist_id, $media_key);
         $result = mysqli_stmt_execute($query);
         $affected = mysqli_affected_rows(db_connect_id());
-        $errno = mysqli_errno(db_connect_id()); //Report success on error if it was just a duplicate entry warning
+        $errno = mysqli_errno(db_connect_id()); 
         mysqli_stmt_close($query);
         if ((!$result || $affected < 1) && ($errno != 1062))
         {
@@ -793,8 +745,7 @@ function add_playlist_keyword($playlist_id, $keyword)
 }
 
 
-//Deletes all the keywords for the playlist with the given id. Returns true
-//on success, false on failure.
+
 function remove_playlist_keywords($playlist_id)
 {
     if($query = mysqli_prepare(db_connect_id(), "DELETE FROM playlist_keyword
@@ -819,8 +770,7 @@ function remove_playlist_keywords($playlist_id)
     }
 }
 
-//Gets all the keywords for the playlist with the given playlist_id. Returns the keywords
-//as a space-separated string of keywords, or null on failure.
+
 function get_playlist_keywords($playlist_id)
 {
     if($query = mysqli_prepare(db_connect_id(), "SELECT media_key FROM playlist_keyword WHERE playlist_id=?"))
@@ -849,8 +799,6 @@ function get_playlist_keywords($playlist_id)
     }
 }
 
-//Adds the media item with the given id to the playlist with the given id.
-//Returns true on success, false on failure.
 function add_playlist_media($playlist_id, $mediaid)
 {
     if($query = mysqli_prepare(db_connect_id(), "INSERT INTO playlist_media 
@@ -859,7 +807,7 @@ function add_playlist_media($playlist_id, $mediaid)
         mysqli_stmt_bind_param($query, "ii", $playlist_id, $mediaid);
         $result = mysqli_stmt_execute($query);
         $affected = mysqli_affected_rows(db_connect_id());
-        $errno = mysqli_errno(db_connect_id()); //Report success on error if it was just a duplicate entry warning
+        $errno = mysqli_errno(db_connect_id()); 
         mysqli_stmt_close($query);
         if ((!$result || $affected < 1) && ($errno != 1062))
         {
@@ -877,8 +825,6 @@ function add_playlist_media($playlist_id, $mediaid)
 }
 
 
-//Removes the media item with the given id from the playlist with the given id.
-//Returns true on success, false on failure.
 function remove_playlist_media($playlist_id, $mediaid)
 {
     if($query = mysqli_prepare(db_connect_id(), "DELETE FROM playlist_media 
@@ -903,10 +849,6 @@ function remove_playlist_media($playlist_id, $mediaid)
     }
 }
 
-//Sets the metadata for the playlist with the given playlist_id to have the given name,
-//description, and keywords. The keywords should take the form of an array of strings
-//containing a single keyword each. Returns true on a successful change, false on an
-//unsuccessful change.
 function update_playlist_metadata($playlist_id, $name, $description, $keywords)
 {
     if($query = mysqli_prepare(db_connect_id(), "UPDATE playlist SET name=?, description=?
@@ -939,10 +881,7 @@ function update_playlist_metadata($playlist_id, $name, $description, $keywords)
     return $success;
 }
 
-//Saves a message from the given sender_username to the given recipients with the given
-//message contents. The recipient usernames should take the form of an array of strings
-//containing a single username each. Returns true on a successful change, false on an
-//unsuccessful change.
+
 function add_message($sender_username, $message_contents, $recipient_usernames)
 {
     if($query = mysqli_prepare(db_connect_id(), "INSERT INTO message (message_id,
@@ -973,8 +912,7 @@ function add_message($sender_username, $message_contents, $recipient_usernames)
     return $success;
 }
 
-//Adds the user with the given username as a recipient of the message
-//with the given id. Returns true on success, false on failure.
+
 function add_message_recipient($message_id, $recipient_username)
 {
     if($query = mysqli_prepare(db_connect_id(), "INSERT INTO message_recipient 
@@ -983,7 +921,7 @@ function add_message_recipient($message_id, $recipient_username)
         mysqli_stmt_bind_param($query, "is", $message_id, $recipient_username);
         $result = mysqli_stmt_execute($query);
         $affected = mysqli_affected_rows(db_connect_id());
-        $errno = mysqli_errno(db_connect_id()); //Report success on error if it was just a duplicate entry warning
+        $errno = mysqli_errno(db_connect_id()); 
         mysqli_stmt_close($query);
         if ((!$result || $affected < 1) && ($errno != 1062))
         {
@@ -1002,7 +940,7 @@ function add_message_recipient($message_id, $recipient_username)
 
 function other()
 {
-	//You can write your own functions here.
+	
 }
 	
 ?>
